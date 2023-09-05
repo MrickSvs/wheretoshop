@@ -11,7 +11,7 @@ class ShopProvider with ChangeNotifier {
   }
 
   Future<void> fetchShops() async {
-    const url = 'http://localhost:3000/shops';
+    const url = 'https://wheretoshop.onrender.com/shops';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
