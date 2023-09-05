@@ -2,7 +2,7 @@ class Shop {
   final String id;
   final String name;
   final String description;
-  final List<String> style;
+  final List<ShopStyle> style; // Modifié pour utiliser l'énumération ShopStyle
   final List<String> type;
   final String address;
   final Map<String, dynamic> gps;
@@ -32,7 +32,9 @@ class Shop {
       id: json['_id'],
       name: json['name'],
       description: json['description'],
-      style: List<String>.from(json['style']),
+      style: (json['style'] as List)
+          .map((item) => ShopStyle.values[int.parse(item)])
+          .toList(), // Modifié pour parser les valeurs en tant que ShopStyle
       type: List<String>.from(json['type']),
       address: json['address'],
       gps: json['gps'],
@@ -44,3 +46,10 @@ class Shop {
     );
   }
 }
+
+enum ShopStyle {
+  traditional,
+  modern,
+  eclectic,
+  other
+} // Nouvelle énumération pour définir les styles possibles

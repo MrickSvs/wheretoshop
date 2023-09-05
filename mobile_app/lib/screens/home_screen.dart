@@ -19,6 +19,29 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Wheretoshop'),
         backgroundColor: Colors.black87, // noir mat
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              shopProvider.filterShopsByStyle(value);
+            },
+            itemBuilder: (context) {
+              return [
+                const PopupMenuItem(
+                  value: 'streetwear',
+                  child: Text('Streetwear'),
+                ),
+                const PopupMenuItem(
+                  value: 'friperie',
+                  child: Text('Friperie'),
+                ),
+                const PopupMenuItem(
+                  value: 'modern',
+                  child: Text('Modern'),
+                ),
+              ];
+            },
+          ),
+        ],
       ),
       body: FlutterMap(
         options: MapOptions(

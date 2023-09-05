@@ -28,8 +28,34 @@ class ShopProvider with ChangeNotifier {
       rethrow;
     }
   }
+
+  Future<void> filterShopsByStyle(String style) async {
+    final url = 'https://wheretoshop.onrender.com/shops?style=$style';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        _shops = data.map<Shop>((item) => Shop.fromJson(item)).toList();
+        notifyListeners();
+      } else {
+        throw HttpException('Failed to load filtered shops');
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+      rethrow;
+    }
+  }
 }
 
-class HttpException {
-  HttpException(String s);
+class HttpException implements Exception {
+  final String message;
+
+  HttpException(this.message);
+
+  @override
+  String toString() {
+    return message;
+  }
 }
