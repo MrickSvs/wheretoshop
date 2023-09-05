@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/shop_provider.dart';
-import 'screens/home_screen.dart'; // Assurez-vous d'importer l'écran d'accueil que vous créerez à l'étape 5
+import 'screens/home_screen.dart'; 
 
 void main() {
   runApp(
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(), // Définissez HomeScreen comme écran d'accueil
+      home: HomeScreen(),
     );
   }
 }

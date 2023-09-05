@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:mobile_app/providers/shop_provider.dart';
+import 'package:mobile_app/widgets/shop_details_modal.dart';
 import 'package:provider/provider.dart';
-import 'package:mobile_app/lib/providers/shop_provider.dart';
+
+
 
 class HomeScreen extends StatelessWidget {
   @override

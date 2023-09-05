@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'models/shop.dart';
+import 'package:mobile_app/models/shop.dart'; // Corrected the import path
 
 class ShopDetailsModal extends StatelessWidget {
   final Shop shop;
