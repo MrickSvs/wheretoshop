@@ -33,8 +33,9 @@ class Shop {
       name: json['name'],
       description: json['description'],
       style: (json['style'] as List)
-          .map((item) => ShopStyle.values[int.parse(item)])
-          .toList(), // Modifié pour parser les valeurs en tant que ShopStyle
+          .map((item) => ShopStyle.values
+              .firstWhere((e) => e.toString().split('.').last == item))
+          .toList(),
       type: List<String>.from(json['type']),
       address: json['address'],
       gps: json['gps'],
@@ -48,8 +49,7 @@ class Shop {
 }
 
 enum ShopStyle {
-  traditional,
-  modern,
-  eclectic,
-  other
+  streetwear,
+  friperie,
+  modern
 } // Nouvelle énumération pour définir les styles possibles
