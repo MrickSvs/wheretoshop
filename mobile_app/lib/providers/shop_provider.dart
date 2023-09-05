@@ -1,17 +1,35 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile_app/models/shop.dart'; // Corrected the import path
+import 'package:mobile_app/models/shop.dart';
 
-class ShopProvider extends ChangeNotifier {
+class ShopProvider with ChangeNotifier {
   List<Shop> _shops = [];
 
-  List<Shop> get shops => _shops;
+  List<Shop> get shops {
+    return [..._shops];
+  }
 
   Future<void> fetchShops() async {
-    final response = await http.get(Uri.parse('http://localhost:3000/shops'));
-    final List<dynamic> responseData = json.decode(response.body);
-    _shops = responseData.map((data) => Shop.fromJson(data)).toList();
-    notifyListeners();
+    const url = 'http://localhost:3000/shops';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        _shops = data.map<Shop>((item) => Shop.fromJson(item)).toList();
+        notifyListeners();
+      } else {
+        throw HttpException('Failed to load shops');
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print(error);
+      }
+      rethrow;
+    }
   }
+}
+
+class HttpException {
+  HttpException(String s);
 }

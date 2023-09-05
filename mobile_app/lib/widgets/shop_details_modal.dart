@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/models/shop.dart'; // Corrected the import path
+import 'package:mobile_app/models/shop.dart';
 
 class ShopDetailsModal extends StatelessWidget {
   final Shop shop;
 
-  ShopDetailsModal({required this.shop});
+  const ShopDetailsModal({Key? key, required this.shop}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
+        ),
+      ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -19,30 +25,50 @@ class ShopDetailsModal extends StatelessWidget {
             children: [
               Text(
                 shop.name,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontSize: 24.0, fontWeight: FontWeight.bold),
               ),
               IconButton(
-                icon: Icon(Icons.close),
+                icon: const Icon(Icons.close),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
             ],
           ),
-          SizedBox(height: 10),
-          Image.network(shop.imageUrl, height: 150, fit: BoxFit.cover),
-          SizedBox(height: 10),
-          Text('Description: ${shop.description}'),
-          SizedBox(height: 10),
-          Text('Styles: ${shop.style.join(', ')}'),
-          SizedBox(height: 10),
-          Text('Type: ${shop.type.join(', ')}'),
-          SizedBox(height: 10),
-          Text('Address: ${shop.address}'),
-          SizedBox(height: 10),
-          Text('Opening Hours: ${shop.openingHours}'),
-          SizedBox(height: 10),
-          Text('Contact: Email - ${shop.contact['email']}, Phone - ${shop.contact['phone']}'),
+          if (shop.imageUrl.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Image.network(
+                shop.imageUrl,
+                fit: BoxFit.cover,
+              ),
+            ),
+          Text(
+            'Style: ${shop.style.join(', ')}',
+            style: const TextStyle(fontSize: 18.0),
+          ),
+          Text(
+            'Description: ${shop.description}',
+            style: const TextStyle(fontSize: 18.0),
+          ),
+          Text(
+            'Type: ${shop.type.join(', ')}',
+            style: const TextStyle(fontSize: 18.0),
+          ),
+          Text(
+            'Address: ${shop.address}',
+            style: const TextStyle(fontSize: 18.0),
+          ),
+          Text(
+            'Contact: ${shop.contact}',
+            style: const TextStyle(fontSize: 18.0),
+          ),
+          Text(
+            'Opening Hours: ${shop.openingHours}',
+            style: const TextStyle(fontSize: 18.0),
+          ),
+          // ... (ajoutez d'autres détails du magasin ici)
         ],
       ),
     );

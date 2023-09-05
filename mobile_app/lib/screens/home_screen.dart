@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -5,9 +7,9 @@ import 'package:mobile_app/providers/shop_provider.dart';
 import 'package:mobile_app/widgets/shop_details_modal.dart';
 import 'package:provider/provider.dart';
 
-
-
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final shopProvider = Provider.of<ShopProvider>(context);
@@ -15,11 +17,12 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shops Map'),
+        title: const Text('Wheretoshop'),
+        backgroundColor: Colors.black87, // noir mat
       ),
       body: FlutterMap(
         options: MapOptions(
-          center: LatLng(48.8566, 2.3522), // Coordonnées de Paris
+          center: LatLng(48.8566, 2.3522),
           zoom: 13.0,
         ),
         layers: [
@@ -32,21 +35,20 @@ class HomeScreen extends StatelessWidget {
               return Marker(
                 width: 80.0,
                 height: 80.0,
-                point: LatLng(shop.gps['coordinates'][0], shop.gps['coordinates'][1]),
-                builder: (ctx) => Container(
-                  child: IconButton(
-                    icon: Icon(Icons.location_on),
-                    color: Colors.red,
-                    iconSize: 45.0,
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return ShopDetailsModal(shop: shop);
-                        },
-                      );
-                    },
-                  ),
+                point: LatLng(
+                    shop.gps['coordinates'][0], shop.gps['coordinates'][1]),
+                builder: (ctx) => IconButton(
+                  icon: const Icon(Icons.location_on),
+                  color: Colors.red,
+                  iconSize: 45.0,
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return ShopDetailsModal(shop: shop);
+                      },
+                    );
+                  },
                 ),
               );
             }).toList(),
